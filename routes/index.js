@@ -88,6 +88,11 @@ router.get('/term', cors(), (req, res) => {
     })
 });
 
+// Route use 
+router.get('/', (req, res) => {
+  res.json({message: "yay"});
+});
+
 // Route used to upload an initial image and to fetch the consecutieve labels
 router.post('/upload', cors(), upload.single('startImage'), (req, res) => {
   console.log(req.file.path)
