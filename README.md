@@ -2,7 +2,7 @@ Great things have been achieved in the fields of Machine Learning and the like. 
 
 ## Deployment
 
-Production server runs on `https://smartiez.uber.space/server`. To deploy on uberspace simply push to remote `production`. This pushes to the bare repo in `/home/smartiez/smartiez.git` which subsequently checks out the master branch to `/home/smartiez/smartiez` and restarts the daemon that keeps the server running. If npm modules have been installed, npm install needs to be run manually (because most of the time there will be some trouble). If there's trouble with npm, see that node is at version > 9. Problems with node-gyp can sometimes be solved by deliting package-lock.json. No idea why.
+Production server runs on `https://smartiez.uber.space/server`. To deploy on uberspace simply push to remote `production`. This pushes to the bare repo in `/home/smartiez/smartiez.git` which subsequently checks out the master branch to `/home/smartiez/smartiez` and restarts the daemon that keeps the server running. If npm modules have been installed, npm install needs to be run manually (because most of the time there will be some trouble). If there's trouble with npm, see that node is at version > 9. Problems with node-gyp can sometimes be solved by deleting package-lock.json. No idea why.
 
 ## Daemon
 
