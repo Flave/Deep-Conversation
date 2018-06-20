@@ -74,7 +74,10 @@ router.get('/term', cors(), (req, res) => {
       const images = _.filter(imageData.items, (item) => 
         mimeTypes.indexOf(item.mime) !== -1
       );
-      return recursivelyFetchLabels(images);
+      if(images.length > 0)
+        return recursivelyFetchLabels(images);
+      else 
+        throw new Error('NO_IMAGES_FOUND');
     })
     .then((labelsData) => {
       data.image = labelsData.usedImage;
@@ -84,7 +87,9 @@ router.get('/term', cors(), (req, res) => {
       res.json(data);
     })
     .catch((err) => {
-      console.log(err);
+      console.log(colors.red(err));
+      data.error = err.message;
+      res.json(data);
     })
 });
 

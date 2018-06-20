@@ -1,4 +1,4 @@
-Great things have been achieved in the fields of Machine Learning and the like. Many praising things have been written about the pioneers. It is time to let them speak, take part in the conversation and show off their skills. This is a conversation between two of the most advanced.
+Great things have been achieved in the fields of Machine Learning and Artificial Intelligence. Many praising words have been written about the frontrunners. It is time to let them speak, to let them take part in the conversation and show off their skills. This is a conversation between two of the most advanced.
 
 ## Deployment
 
