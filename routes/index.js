@@ -23,17 +23,19 @@ const imageFilter = function (req, file, cb) {
 
 // Needed because sometimes fetching labels fails?
 const recursivelyFetchLabels = (possibleImages) => {
+  const index = Math.floor(Math.random() * Math.min(10, possibleImages.length));
+  const pickedImage = possibleImages.splice(index, 1)[0];
   return visionClient
-    .detectLabels(possibleImages[0].link)
+    .detectLabels(pickedImage.link)
     .then((results) => {
 
       // not quite sure what this is supposed to accomplish
       if(possibleImages.length === 1)
         return new Error('Could not retrieve labels for this batch of images!');
       if(!results[0].length)
-        return {labels: undefined, usedImage: possibleImages[0].link};
+        return {labels: undefined, usedImage: pickedImage.link};
 
-      return {fullResult: results, labels: results[0], usedImage: possibleImages[0].link};
+      return {fullResult: results, labels: results[0], usedImage: pickedImage.link};
     })
     .catch((err) => {
       console.log("=====> Could not get labels: ")
