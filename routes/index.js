@@ -5,7 +5,9 @@ const vision = require('@google-cloud/vision');
 const request = require('request-promise-native');
 const _ = require('lodash');
 const colors = require('colors');
-var cors = require('cors')
+const cors = require('cors');
+const cseCredentials = require('../config/cseCredentials.json');
+
 
 const mimeTypes = ["image/jpeg", "image/png"];
 const visionClient = vision({
@@ -60,8 +62,6 @@ const fetchLabels = (imageLink) => {
 }
 
 const router = new express.Router();
-const cseKey = "AIzaSyAOlR56ts5jlG55ZJmMpvpOZOZFqwavD7U";
-const cseId = "011687790957766324826:mksf6hhinvi";
 const upload = multer({ dest: './uploads', fileFilter: imageFilter });
 
 // Route use 
@@ -70,7 +70,7 @@ router.get('/term', cors(), (req, res) => {
     query: req.query.q
   };
 
-  request(`https://www.googleapis.com/customsearch/v1?key=${cseKey}&cx=${cseId}&searchType=image&imgSize=medium&num=10&q=${req.query.q}`)
+  request(`https://www.googleapis.com/customsearch/v1?key=${cseCredentials.key}&cx=${cseCredentials.id}&searchType=image&imgSize=medium&num=10&q=${req.query.q}`)
     .then((response) => {
       const imageData = JSON.parse(response);
       const images = _.filter(imageData.items, (item) => 
