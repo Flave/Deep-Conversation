@@ -4,7 +4,7 @@ Great things have been achieved in the fields of Machine Learning and Artificial
 
 ## What?
 
-This is the server part of a little experiment I made using Google's Image Search and Google's Cloud Vision APIs. In combination with its client counterpart it creates a conversation between these two algorithms. It exposes two endpoints that respond with a json structure of the same type.
+This is the server part of a little experiment I made using Google's Image Search and Google's Cloud Vision APIs. In combination with its [client counterpart](https://github.com/Flave/Deep-Conversation-Client) it creates a conversation between these two algorithms. It exposes two endpoints that respond with a json structure of the same type.
 
 The first one `/upload` expects a `POST` request with an image file attached to its body. It then requests matching labels from Cloud Vision and returns them in a json response.
 
