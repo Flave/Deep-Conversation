@@ -1,36 +1,54 @@
-Great things have been achieved in the fields of Machine Learning and Artificial Intelligence. Many praising words have been written about the frontrunners. It is time to let them speak, to let them take part in the conversation and show off their skills. This is a conversation between two of the most advanced.
+# Deep Conversation
 
-## Deployment
+Great things have been achieved in the fields of Machine Learning and Artificial Intelligence. Many praising words have been written about the frontrunners. It is time to let them speak, to let them take part in the conversation and show off their skills. What would it sound like if Google Image Search and Google Cloud Vision had a conversation? A humorous investigation into the wit and intelligence of two of Google's most sophisticated algorithms.
 
-Production server runs on `https://smartiez.uber.space/server`. To deploy on uberspace simply push to remote `production`. This pushes to the bare repo in `/home/smartiez/smartiez.git` which subsequently checks out the master branch to `/home/smartiez/smartiez` and restarts the daemon that keeps the server running. If npm modules have been installed, npm install needs to be run manually (because most of the time there will be some trouble). If there's trouble with npm, see that node is at version > 9. Problems with node-gyp can sometimes be solved by deleting package-lock.json. No idea why.
+## What?
 
-## Daemon
+This is the server part of a little experiment I made using Google's Image Search and Google's Cloud Vision APIs. In combination with its client counterpart it creates a conversation between these two algorithms. It exposes two endpoints that respond with a json structure of the same type.
 
-Daemon lies in `~/etc/service.d/smartiez-daemon.ini`. It simply runs `npm run production` to start the server.
+The first one `/upload` expects a `POST` request with an image file attached to its body. It then requests matching labels from Cloud Vision and returns them in a json response.
 
-## Connection to webserver
-To connect to the webserver, the following rewrite rule has been added to `/home/smartiez/html/.htaccess`. 
-
-```
-RewriteEngine On
-RewriteRule ^server/(.*) http://localhost:61635/$1 [P]
-```
-
-If the server should be run at root level change this to
-```
-RewriteEngine On
-RewriteRule (.*) http://localhost:61635/$1 [P]
-```
-
-To avoid Apache from appending `index.html` to the redirect add `DirectoryIndex disabled` to the `.htaccess`.
-
-
-Every request to either `/term` or `/upload` returns an object:
 
 ```
 {
   labels: ['array', 'of', 'labels'],
-  query: 'the entered query or the label that gets selected',
   image: 'the image that was either uploaded or found'
+}
+```
+
+The second one `/term?q=some_search_term` expects a `GET` request with a search term defined in its query string. It subsequently fetches the top image search results from Google Image Search, takes one of the first images, requests matching labels from Cloud Vision and then returns everything together in a json response.
+
+```
+{
+  labels: ['array', 'of', 'labels'],
+  query: 'the entered query',
+  image: 'the image that was either uploaded or found'
+}
+```
+
+## How?
+To run the server run `npm run development`. Before you do this you will first have to create a `/config` folder with two files inside. The first one (`cseCredentials.json`) holds the credentials for the Google Custom Search Engine API. It has the following structure: 
+
+```
+{
+  "key",
+  "id"
+}
+```
+
+The second one (`keyfile.json`) holds the credentials for the google cloud API. It has the following structure:
+
+```
+{
+  "type",
+  "project_id",
+  "private_key_id",
+  "private_key",
+  "client_email",
+  "client_id",
+  "auth_uri",
+  "token_uri",
+  "auth_provider_x509_cert_url",
+  "client_x509_cert_url"
 }
 ```
